@@ -29,7 +29,7 @@ This guide targets **Windows** (the end-to-end validated platform, with Cyberpun
 3. **.NET 10 SDK (or higher)** — https://dotnet.microsoft.com/download
 4. **WolvenKit CLI**:
    ```powershell
-   dotnet tool install -g WolvenKit.CLI
+   dotnet tool install -g WolvenKit.CLI --version 10.0.0-beta.1
    ```
    This installs `cp77tools` in `~\.dotnet\tools\`.
 5. **Claude**: Claude Desktop or Claude Code (the MCP client that will drive the tools).
@@ -372,7 +372,7 @@ game layout.
 ### Quick troubleshooting
 
 - **`wk_status` returns `ok: false`** → `cp77tools` not found:
-  `dotnet tool install -g WolvenKit.CLI`, or point `WKMCP_CP77TOOLS`.
+  `dotnet tool install -g WolvenKit.CLI --version 10.0.0-beta.1`, or point `WKMCP_CP77TOOLS`.
 - **First call slow (~7 s)** → daemon warmup, normal and one-time.
 - **Every call is slow (~6 s/call)** → the daemon (fast path) is not being used.
   Build it (`dotnet build src\WkDaemon`) so the server finds the sibling

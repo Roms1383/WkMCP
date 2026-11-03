@@ -64,7 +64,7 @@ Cyberpunk 2077 install.
 The Quickstart above is the standard path. In detail:
 
 1. Install the **.NET 10 SDK** or higher — <https://dotnet.microsoft.com/download>.
-2. Install the WolvenKit CLI: `dotnet tool install -g WolvenKit.CLI` (puts `cp77tools` in `~\.dotnet\tools\`).
+2. Install the WolvenKit CLI: `dotnet tool install -g WolvenKit.CLI --version 10.0.0-beta.1` (puts `cp77tools` in `~\.dotnet\tools\`).
 3. Build the **daemon then the server** — the daemon build automatically deploys the Windows native binaries (`kraken.dll` for Oodle, `DirectXTexNet.dll` for textures):
    ```powershell
    dotnet build src\WkDaemon
@@ -220,7 +220,7 @@ WolvenKit is licensed GPL-3.0; that license is itself the permission to build on
 
 ## Troubleshooting
 
-- **`wk_status` returns `ok: false`** — `cp77tools` not found: `dotnet tool install -g WolvenKit.CLI`, or set `WKMCP_CP77TOOLS`.
+- **`wk_status` returns `ok: false`** — `cp77tools` not found: `dotnet tool install -g WolvenKit.CLI --version 10.0.0-beta.1`, or set `WKMCP_CP77TOOLS`.
 - **First call is slow (~7 s)** — daemon warmup; one-time, then instant.
 - **Every call is slow (~6 s/call)** — the daemon isn't being used; build it or set `WKMCP_DAEMON`.
 - **A tool "fails" but files were produced** — judge on `produced` and `ok`, not the `log`; rerun with `verbose: true`.
