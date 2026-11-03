@@ -26,7 +26,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DAEMON = os.path.join(HERE, "src", "WkDaemon", "bin", "Debug", "net10.0", "WkDaemon.dll")
 DOTNET = (os.environ.get("WKMCP_DOTNET")
           or shutil.which("dotnet")
-          or "/opt/homebrew/opt/dotnet@8/libexec/dotnet")
+          or "/opt/homebrew/opt/dotnet@10/libexec/dotnet")
 
 if not os.path.exists(DAEMON):
     sys.exit(f"Daemon not found: {DAEMON}\nBuild: dotnet build src/WkDaemon")
