@@ -607,7 +607,7 @@ public sealed class Cp77ToolsRunner : IDisposable
         {
             return new CliResult(-1, "",
                 $"cp77tools not found: {_cp77tools}\n" +
-                "Install with: dotnet tool install -g WolvenKit.CLI " +
+                "Install with: dotnet tool install -g WolvenKit.CLI --version 10.0.0-beta.1 " +
                 "(or set the WKMCP_CP77TOOLS variable).", false);
         }
 
