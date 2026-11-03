@@ -237,12 +237,15 @@ public sealed class CetBridge : IDisposable
         fields["id"] = id;
         string json = JsonSerializer.Serialize(fields, RequestJson);
 
+        // Resolve before choosing the transport: this also remembers gamePath, so a later
+        // file fallback (after a TCP disconnect) still knows the mod folder.
+        var dir = ResolveBridgeDir(gamePath);
+
         bool useTcp = _transportPref != "file" && TcpClientConnected;
         if (useTcp)
             return await SendTcpAsync(id, json, ct);
 
         // File fallback
-        var dir = ResolveBridgeDir(gamePath);
         if (dir == null)
             return new BridgeResponse(id, false, null,
                 "Bridge not connected (TCP) and mod folder unknown: pass `gamePath` (once is enough), or set " +
@@ -344,7 +347,8 @@ public sealed class CetBridge : IDisposable
 
     /// <summary>CETBridge mod folder: CET_BRIDGE_DIR otherwise derived from gamePath
     /// (&lt;game&gt;/bin/x64/plugins/cyber_engine_tweaks/mods/CETBridge). The last gamePath
-    /// seen is remembered, so later live_* calls without one still reach the file transport.</summary>
+    /// seen is remembered, so later live_* calls without one still reach the file transport.
+    /// Called on every request regardless of transport, so a gamePath sent over TCP is kept too.</summary>
     internal string? ResolveBridgeDir(string? gamePath)
     {
         if (_bridgeDirEnv != null) return _bridgeDirEnv;

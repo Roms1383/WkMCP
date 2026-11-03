@@ -280,4 +280,20 @@ public class ResolveBridgeDirTests
         Assert.Equal(expected, bridge.ResolveBridgeDir(null));
         Assert.Equal(expected, bridge.ResolveBridgeDir("  "));
     }
+
+    [Fact]
+    public async Task SendRemembersGamePath()
+    {
+        if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("CET_BRIDGE_DIR")))
+            return; // CET_BRIDGE_DIR overrides gamePath entirely
+
+        using var bridge = new CetBridge();
+        var game = Path.Combine(Path.GetTempPath(), "fake-game-" + Guid.NewGuid().ToString("N"));
+        var expected = Path.Combine(game, "bin", "x64", "plugins", "cyber_engine_tweaks", "mods", "CETBridge");
+
+        var r = await bridge.ExecAsync("return 1", game, CancellationToken.None);
+        Assert.False(r.Ok);
+        Assert.Contains(expected, r.Error);
+        Assert.Equal(expected, bridge.ResolveBridgeDir(null));
+    }
 }

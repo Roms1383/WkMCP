@@ -42,7 +42,8 @@ stable. 9.1.0 is the latest stable fallback, but it does not support 2.5.
     the class hierarchy first (`IsA`), so devices such as `VendingMachine` and `SecurityTurret`
     report `Device` instead of `Unknown`. An empty result now returns `entities: []`, not `{}`.
   - The file transport remembers the last `gamePath` passed to a `live_*` tool, so later calls
-    no longer fail with "not connected" when they omit it.
+    no longer fail with "not connected" when they omit it. This includes a `gamePath` passed while
+    TCP is connected, so the file fallback still works after a TCP disconnect.
 
 ## Unreleased — Coverage gaps: rig/garment import, loose Redscript & CET install (165 -> 168 tools)
 
